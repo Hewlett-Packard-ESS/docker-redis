@@ -1,0 +1,5 @@
+redis:
+ image: hpess/redis
+ volumes: ./storage:/storage
+ ports: 
+  - "6379:6379"
