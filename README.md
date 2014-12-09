@@ -13,3 +13,6 @@ Alternatively you can use the provided fig.yml:
 ```
 fig up -d
 ```
+
+## Persistence 
+/storage is exposed as a volume so mount that in.
