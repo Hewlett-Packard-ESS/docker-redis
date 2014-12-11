@@ -1,5 +1,5 @@
 # hpess/redis
-Builds on the hpess/base image by installing redis-server 
+Builds on the hpess/chef image by installing redis-server 
 
 ## Use
 ```

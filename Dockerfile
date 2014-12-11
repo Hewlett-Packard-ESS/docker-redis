@@ -1,4 +1,4 @@
-FROM hpess/base:latest
+FROM hpess/chef:latest
 MAINTAINER Karl Stoney <karl.stoney@hp.com>
 
 RUN yum -y install redis
