@@ -1,8 +1,8 @@
 FROM hpess/chef:latest
 MAINTAINER Karl Stoney <karl.stoney@hp.com>
 
-RUN yum -y install redis
-RUN yum -y clean all
+RUN yum -y install redis && \
+    yum -y clean all
 
 # Setup the redis specifics
 RUN mkdir -p /storage/redis
