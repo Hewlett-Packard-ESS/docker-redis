@@ -13,4 +13,4 @@ ADD ./storage/redis/redis-sentinel.conf /storage/redis/redis-sentinel.conf
 ADD redis.service.conf /etc/supervisord.d/redis.service.conf
 ADD redis-sentinel.service.conf /etc/supervisord.d/redis-sentinel.service.conf
 
-EXPOSE 6379
+EXPOSE 26379 6379
