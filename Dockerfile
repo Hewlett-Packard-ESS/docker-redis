@@ -8,7 +8,9 @@ RUN yum -y install redis && \
 RUN mkdir -p /storage/redis && \
     chown -R docker:docker /storage/redis && \
     mkdir -p /var/log/redis && \
-    chown -R docker:docker /var/log/redis
+    chown -R docker:docker /var/log/redis && \
+    mkdir -p /var/run/redis && \
+    chown -R docker:docker /var/run/redis
 
 COPY ./storage/redis/redis.conf /storage/redis/redis.conf
 COPY services/* /etc/supervisord.d/
