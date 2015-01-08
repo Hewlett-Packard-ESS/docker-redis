@@ -12,12 +12,12 @@ RUN mkdir -p /storage/redis && \
     mkdir -p /var/run/redis && \
     chown -R docker:docker /var/run/redis
 
-COPY ./storage/redis/redis.conf /storage/redis/redis.conf
 COPY services/* /etc/supervisord.d/
 COPY cookbooks/ /chef/cookbooks/
 
 ENV HPESS_ENV redis
 
-EXPOSE 26379 6379
+EXPOSE 6379
+EXPOSE 26379
 ENV chef_node_name redis.docker.local
 ENV chef_run_list redis

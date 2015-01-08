@@ -1,5 +1,10 @@
-redis:
+redis1:
  image: hpess/redis
- volumes: ./storage:/storage
- ports: 
-  - "6379:6379"
+
+redis2:
+ image: hpess/redis
+ links:
+   - redis1
+ environment:
+   redis_slaveof: 'redis1 6379'
+

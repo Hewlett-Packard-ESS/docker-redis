@@ -1,0 +1,5 @@
+loglevel notice
+logfile "/var/log/redis/redis.log"
+<% if !@confvars[:slaveOf].nil? %>
+slaveof <%= @confvars[:slaveOf] %>
+<% end %>
