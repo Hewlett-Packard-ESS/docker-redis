@@ -6,6 +6,6 @@ logfile "/var/log/redis-sentinel-26379.log"
 loglevel notice
 
 # Note, this is now a quorm of 2 therefore we require at least two redis sentinels in the setup
-sentinel monitor redis1 127.0.0.1 6379 2
+sentinel monitor redis1 <%= @confvars[:redis] %> 6379 2
 sentinel down-after-milliseconds redis1 5000
 sentinel failover-timeout redis1 10000

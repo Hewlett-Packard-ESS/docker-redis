@@ -5,12 +5,17 @@ RUN yum -y install redis && \
     yum -y clean all
 
 # Setup the redis specifics
-RUN mkdir -p /storage/redis
-ADD ./storage/redis/redis.conf /storage/redis/redis.conf
-ADD ./storage/redis/redis-sentinel.conf /storage/redis/redis-sentinel.conf
+RUN mkdir -p /storage/redis && \
+    chown -R docker:docker /storage/redis && \
+    mkdir -p /var/log/redis && \
+    chown -R docker:docker /var/log/redis
 
-# Add the supervisor service definition
-ADD redis.service.conf /etc/supervisord.d/redis.service.conf
-ADD redis-sentinel.service.conf /etc/supervisord.d/redis-sentinel.service.conf
+COPY ./storage/redis/redis.conf /storage/redis/redis.conf
+COPY services/* /etc/supervisord.d/
+COPY cookbooks/ /chef/cookbooks/
+
+ENV HPESS_ENV redis
 
 EXPOSE 26379 6379
+ENV chef_node_name redis.docker.local
+ENV chef_run_list redis
