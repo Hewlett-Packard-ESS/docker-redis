@@ -1,5 +1,5 @@
 loglevel notice
-logfile "/var/log/redis/redis.log"
+logfile ""
 <% if !@confvars[:slaveOf].nil? %>
 slaveof <%= @confvars[:slaveOf] %>
 <% end %>
