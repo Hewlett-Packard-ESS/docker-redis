@@ -28,10 +28,10 @@ To create a container running both redis and redis sentinel (some docker purists
 ```
 everything:
   image: hpess/redis
-  hostname: 'everything'
+  hostname: 'self'
   environment:
     redis_mode: 'both'
-    sentinel_monitor: 'everything'
+    sentinel_monitor: 'self'
 ```
 
 ## Clustering
