@@ -37,6 +37,39 @@ everything:
 ## Clustering
 Everyone loves HA.... see the included `docker-compose.yml` file for an example of how to stand up the typical Active/Passive/Passive + 3 sentinels configuration.
 
+Here is the shorthand version, using the 'both' containers, the `docker-compose.yml` example in the repo creates a container for each however.
+```
+redis1:
+  image: hpess/redis
+  restart: 'always'
+  hostname: redis1
+  environment:
+    redis_mode: 'both'
+    sentinel_monitor: 'redis1'
+
+redis2:
+  image: hpess/redis
+  restart: 'always'
+  hostname: redis2
+  environment:
+    redis_mode: 'both'
+    sentinel_monitor: 'redis1'
+    redis_slaveof: 'redis1'
+  links:
+    - 'redis1'
+
+redis3:
+  image: hpess/redis
+  restart: 'always'
+  hostname: redis3
+  environment:
+    redis_mode: 'both'
+    sentinel_monitor: 'redis1'
+    redis_slaveof: 'redis1'
+  links:
+    - 'redis1'
+```
+
 __Note__: In the example, I'm using the initial hostnames for the `redis_slaveof` and `sentinel_monitor` environment variables.  Redis will actually resolve these to their address and in turn update the configuration files to be IPs rather than hostnames.  This is fine, however if your contains IP changes (which in docker, it can) then things can get messy.
 
 As a result if you're planning on doing 'proper' HA, you need to have another DNS solution in place to accomodate this, or have the three "pairs" running on separate host interfaces.
