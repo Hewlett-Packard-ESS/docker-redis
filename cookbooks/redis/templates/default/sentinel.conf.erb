@@ -4,8 +4,9 @@ port 26379
 pidfile "/var/run/redis/redis-sentinel-26379.pid"
 logfile ""
 loglevel notice
+dir "/storage"
 
 # Note, this is now a quorm of 2 therefore we require at least two redis sentinels in the setup
-sentinel monitor redis1 <%= @confvars[:redis] %> 6379 2
-sentinel down-after-milliseconds redis1 5000
-sentinel failover-timeout redis1 10000
+sentinel monitor <%= @sentinel_monitor %> <%= @sentinel_monitor_ip %> 6379 <%= @sentinel_quorum %>
+sentinel down-after-milliseconds <%= @sentinel_monitor %> 5000
+sentinel failover-timeout <%= @sentinel_monitor %> 10000

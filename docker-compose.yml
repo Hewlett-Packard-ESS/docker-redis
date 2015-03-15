@@ -1,0 +1,49 @@
+redis1:
+  image: hpess/redis
+  restart: 'always'
+  hostname: redis1
+
+redis2:
+  image: hpess/redis
+  restart: 'always'
+  hostname: redis2
+  environment:
+    redis_slaveof: 'redis1 6379'
+  links:
+    - 'redis1'
+  
+redis3:
+  image: hpess/redis
+  restart: 'always'
+  hostname: redis3
+  environment:
+    redis_slaveof: 'redis1 6379'
+  links:
+    - 'redis1'
+
+sentinel1:
+  image: hpess/redis
+  restart: 'always'
+  hostname: sentinel1
+  environment:
+    sentinel_monitor: 'redis1'
+  links:
+    - 'redis1'
+
+sentinel2:
+  image: hpess/redis
+  restart: 'always'
+  hostname: sentinel2
+  environment:
+    sentinel_monitor: 'redis1'
+  links:
+    - 'redis1'
+
+sentinel3:
+  image: hpess/redis
+  restart: 'always'
+  hostname: sentinel3
+  environment:
+    sentinel_monitor: 'redis1'
+  links:
+    - 'redis1'

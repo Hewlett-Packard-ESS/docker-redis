@@ -1,4 +1,4 @@
-dirs=%w(/storage/redis /var/log/redis)
+dirs=%w(/storage /var/log/redis)
 
 dirs.each do |dir|
   directory "#{dir}" do
@@ -9,18 +9,37 @@ dirs.each do |dir|
   end
 end
 
-template '/storage/redis/redis-sentinel.conf' do
-  source 'sentinel.conf.erb'
-  variables ({ :confvars => { :redis => ENV['HOSTNAME'] } })
-  owner 'docker'
-  group 'docker'
-  action :create_if_missing
+if not ENV['sentinel_monitor'].nil?
+
+  template '/storage/redis-sentinel.conf' do
+    source    'sentinel.conf.erb'
+    variables({ 
+      :sentinel_monitor    => ENV['sentinel_monitor'],
+      :sentinel_monitor_ip => ENV['sentinel_monitor_ip'] || ENV['sentinel_monitor'],
+      :sentinel_quorum     => ENV['sentinel_quorum'] || 2
+    })
+    owner     'docker'
+    group     'docker'
+    action    :create_if_missing
+  end
+  service = 'sentinel.service.conf' 
+
+else
+
+  template '/storage/redis.conf' do
+    source  'redis.conf.erb'
+    variables ({ 
+      :redis_slaveof => ENV['redis_slaveof'] 
+    })
+    owner   'docker'
+    group   'docker'
+    action   :create_if_missing
+  end
+  service = 'redis.service.conf' 
+
 end
 
-template '/storage/redis/redis.conf' do
-  source 'redis.conf.erb'
-  variables ({ :confvars => { :slaveOf => ENV['redis_slaveof'] } })
-  owner 'docker'
-  group 'docker'
-  action :create_if_missing
+cookbook_file "/etc/supervisord.d/#{service}" do
+  source service
+  action :create
 end

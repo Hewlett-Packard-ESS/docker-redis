@@ -1,5 +1,10 @@
+daemonize no
+
+port 6379
 loglevel notice
 logfile ""
-<% if !@confvars[:slaveOf].nil? %>
-slaveof <%= @confvars[:slaveOf] %>
+dir "/storage"
+<% if !@redis_slaveof.nil? %>
+slaveof <%= @redis_slaveof %>
 <% end %>
+
