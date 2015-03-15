@@ -1,6 +1,6 @@
 ![Redis](/redis.png?raw=true "Redis")
 
-Builds on the hpess/chef image by installing redis and redis-sentinel.
+Builds on the hpess/chef image by installing redis and redis-sentinel, currently version 2.8.19.
 
 ## Use
 This container can be used to stand up both redis servers and sentinel servers ease.
