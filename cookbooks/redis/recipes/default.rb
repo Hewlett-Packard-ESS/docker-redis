@@ -9,8 +9,7 @@ dirs.each do |dir|
   end
 end
 
-if not ENV['sentinel_monitor'].nil?
-
+def setup_sentinel
   template '/storage/redis-sentinel.conf' do
     source    'sentinel.conf.erb'
     variables({ 
@@ -22,10 +21,13 @@ if not ENV['sentinel_monitor'].nil?
     group     'docker'
     action    :create_if_missing
   end
-  service = 'sentinel.service.conf' 
+  cookbook_file "/etc/supervisord.d/sentinel.service.conf" do
+    source 'sentinel.service.conf'
+    action :create
+  end
+end
 
-else
-
+def setup_redis
   template '/storage/redis.conf' do
     source  'redis.conf.erb'
     variables ({ 
@@ -35,11 +37,30 @@ else
     group   'docker'
     action   :create_if_missing
   end
-  service = 'redis.service.conf' 
-
+  cookbook_file "/etc/supervisord.d/redis.service.conf" do
+    source 'redis.service.conf'
+    action :create
+  end
 end
 
-cookbook_file "/etc/supervisord.d/#{service}" do
-  source service
-  action :create
+mode=ENV['redis_mode']
+if mode.nil?
+  if not ENV['sentinel_monitor'].nil?
+    mode='sentinel'
+  else
+    mode='redis'
+  end
+end
+
+puts "Starting in #{mode} mode."
+case mode
+when 'both'
+  setup_redis
+  setup_sentinel
+when 'redis'
+  setup_redis
+when 'sentinel'
+  setup_sentinel
+else
+  raise "Unknown Mode: #{mode}"
 end

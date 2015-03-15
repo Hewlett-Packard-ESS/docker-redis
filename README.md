@@ -24,6 +24,16 @@ sentinel1:
     sentinel_monitor_ip: '127.0.0.1'
 ```
 
+To create a container running both redis and redis sentinel (some docker purists would argue against this multi process):
+```
+everything:
+  image: hpess/redis
+  hostname: 'everything'
+  environment:
+    redis_mode: 'both'
+    sentinel_monitor: 'everything'
+```
+
 ## Clustering
 Everyone loves HA.... see the included `docker-compose.yml` file for an example of how to stand up the typical Active/Passive/Passive + 3 sentinels configuration.
 
