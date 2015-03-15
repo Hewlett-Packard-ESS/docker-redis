@@ -3,7 +3,7 @@
 Builds on the [hpess/chef](https://github.com/Hewlett-Packard-ESS/docker-chef) image by installing redis and redis-sentinel, currently version 2.8.19.
 
 ## Use
-This container can be used to stand up both redis servers and sentinel servers ease.
+This container can be used to stand up both redis servers and sentinel servers ease, the example below use [Docker Compose](https://github.com/docker/compose).  Save them as `docker-compose.yml` and type `docker-compose up`
 
 To create a simple redis instance:
 ```
