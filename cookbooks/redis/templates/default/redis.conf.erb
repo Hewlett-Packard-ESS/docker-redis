@@ -5,6 +5,6 @@ loglevel notice
 logfile ""
 dir "/storage"
 <% if !@redis_slaveof.nil? %>
-slaveof <%= @redis_slaveof %>
+slaveof <%= @redis_slaveof %> 6379
 <% end %>
 

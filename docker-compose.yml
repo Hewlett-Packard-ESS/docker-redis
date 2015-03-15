@@ -8,7 +8,7 @@ redis2:
   restart: 'always'
   hostname: redis2
   environment:
-    redis_slaveof: 'redis1 6379'
+    redis_slaveof: 'redis1'
   links:
     - 'redis1'
   
@@ -17,7 +17,7 @@ redis3:
   restart: 'always'
   hostname: redis3
   environment:
-    redis_slaveof: 'redis1 6379'
+    redis_slaveof: 'redis1'
   links:
     - 'redis1'
 
