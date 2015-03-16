@@ -1,4 +1,4 @@
-FROM hpess/chef:latest
+FROM hpess/chef:master
 MAINTAINER Karl Stoney <karl.stoney@hp.com>
 
 RUN yum -y install make gcc
