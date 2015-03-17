@@ -1,15 +1,16 @@
 FROM hpess/chef:master
 MAINTAINER Karl Stoney <karl.stoney@hp.com>
 
-RUN yum -y install make gcc
-
-RUN cd /tmp && \
+RUN yum -y -q install make gcc && \
+    cd /tmp && \
     wget --quiet http://download.redis.io/releases/redis-2.8.19.tar.gz && \
     tar -xzf redis-*.tar.gz && \
     cd redis-* && \
     make -s && \
     make install && \
-    rm -rf /tmp/redis*
+    rm -rf /tmp/redis* && \
+    yum -y -q autoremove make gcc && \
+    yum -y -q clean all
 
 # Setup the redis specifics
 RUN mkdir -p /var/run/redis && \
