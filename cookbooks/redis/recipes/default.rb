@@ -13,9 +13,9 @@ def setup_sentinel
   template '/storage/redis-sentinel.conf' do
     source    'sentinel.conf.erb'
     variables({ 
-      :sentinel_monitor    => ENV['sentinel_monitor'],
-      :sentinel_monitor_ip => ENV['sentinel_monitor_ip'] || ENV['sentinel_monitor'],
-      :sentinel_quorum     => ENV['sentinel_quorum'] || 2
+      :master_name      => ENV['master_name'],
+      :master_ip        => ENV['master_ip'] || ENV['master_name'],
+      :sentinel_quorum  => ENV['sentinel_quorum'] || 2
     })
     owner     'docker'
     group     'docker'
@@ -45,7 +45,7 @@ end
 
 mode=ENV['redis_mode']
 if mode.nil?
-  if not ENV['sentinel_monitor'].nil?
+  if not ENV['master_name'].nil?
     mode='sentinel'
   else
     mode='redis'

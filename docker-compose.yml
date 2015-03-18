@@ -26,7 +26,7 @@ sentinel1:
   restart: 'always'
   hostname: sentinel1
   environment:
-    sentinel_monitor: 'redis1'
+    master_name: 'redis1'
   links:
     - 'redis1'
 
@@ -35,7 +35,7 @@ sentinel2:
   restart: 'always'
   hostname: sentinel2
   environment:
-    sentinel_monitor: 'redis1'
+    master_name: 'redis1'
   links:
     - 'redis1'
 
@@ -44,6 +44,6 @@ sentinel3:
   restart: 'always'
   hostname: sentinel3
   environment:
-    sentinel_monitor: 'redis1'
+    master_name: 'redis1'
   links:
     - 'redis1'
