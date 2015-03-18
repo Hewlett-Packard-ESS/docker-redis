@@ -9,4 +9,4 @@ dir "/storage"
 # Note, this is now a quorm of 2 therefore we require at least two redis sentinels in the setup
 sentinel monitor <%= @master_name %> <%= @master_ip %> 6379 <%= @sentinel_quorum %>
 sentinel down-after-milliseconds <%= @master_name %> 5000
-sentinel failover-timeout <%= @master_ip %> 10000
+sentinel failover-timeout <%= @master_name %> 10000
