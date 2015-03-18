@@ -20,8 +20,8 @@ sentinel1:
   restart: 'always'
   hostname: sentinel1
   environment:
-    sentinel_monitor: 'mymaster'
-    sentinel_monitor_ip: '127.0.0.1'
+    master_name: 'mymaster'
+    master_ip: '127.0.0.1'
 ```
 
 To create a container running both redis and redis sentinel (some docker purists would argue against this multi process):
@@ -31,7 +31,7 @@ everything:
   hostname: 'self'
   environment:
     redis_mode: 'both'
-    sentinel_monitor: 'self'
+    master_name: 'self'
 ```
 
 ## Clustering
@@ -45,7 +45,7 @@ redis1:
   hostname: redis1
   environment:
     redis_mode: 'both'
-    sentinel_monitor: 'redis1'
+    master_name: 'redis1'
 
 redis2:
   image: hpess/redis
@@ -53,7 +53,7 @@ redis2:
   hostname: redis2
   environment:
     redis_mode: 'both'
-    sentinel_monitor: 'redis1'
+    master_name: 'redis1'
     redis_slaveof: 'redis1'
   links:
     - 'redis1'
@@ -64,13 +64,13 @@ redis3:
   hostname: redis3
   environment:
     redis_mode: 'both'
-    sentinel_monitor: 'redis1'
+    master_name: 'redis1'
     redis_slaveof: 'redis1'
   links:
     - 'redis1'
 ```
 
-__Note__: In the example, I'm using the initial hostnames for the `redis_slaveof` and `sentinel_monitor` environment variables.  Redis will actually resolve these to their address and in turn update the configuration files to be IPs rather than hostnames.  This is fine, however if your contains IP changes (which in docker, it can) then things can get messy.
+__Note__: In the example, I'm using the initial hostnames for the `redis_slaveof` and `master_name` environment variables.  Redis will actually resolve these to their address and in turn update the configuration files to be IPs rather than hostnames.  This is fine, however if your contains IP changes (which in docker, it can) then things can get messy.
 
 As a result if you're planning on doing 'proper' HA, you need to have another DNS solution in place to accomodate this, or have the three "pairs" running on separate host interfaces.
 
