@@ -1,10 +1,10 @@
 redis1:
-  image: hpess/redis
+  image: hpess/redis:master
   restart: 'always'
   hostname: redis1
 
 redis2:
-  image: hpess/redis
+  image: hpess/redis:master
   restart: 'always'
   hostname: redis2
   environment:
@@ -13,7 +13,7 @@ redis2:
     - 'redis1'
   
 redis3:
-  image: hpess/redis
+  image: hpess/redis:master
   restart: 'always'
   hostname: redis3
   environment:
@@ -22,7 +22,7 @@ redis3:
     - 'redis1'
 
 sentinel1:
-  image: hpess/redis
+  image: hpess/redis:master
   restart: 'always'
   hostname: sentinel1
   environment:
@@ -31,7 +31,7 @@ sentinel1:
     - 'redis1'
 
 sentinel2:
-  image: hpess/redis
+  image: hpess/redis:master
   restart: 'always'
   hostname: sentinel2
   environment:
@@ -40,7 +40,7 @@ sentinel2:
     - 'redis1'
 
 sentinel3:
-  image: hpess/redis
+  image: hpess/redis:master
   restart: 'always'
   hostname: sentinel3
   environment:
