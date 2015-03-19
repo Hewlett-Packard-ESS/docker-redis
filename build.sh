@@ -1,1 +1,1 @@
-docker build -t hpess/redis:latest .
+docker build -t hpess/redis:master .
