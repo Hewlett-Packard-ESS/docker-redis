@@ -1,10 +1,8 @@
 #!/bin/bash
 set +e
 function sysconfig {
-    {
-		$1
-	} 2> /dev/null
-	if [ $? -eq 1 ]; then
+	$1 >/dev/null 2>&1
+	if [ ! $? -eq 0 ]; then
 		warn "Failed to run $1, are you running with --privileged?"
 	fi
 }
