@@ -3,7 +3,7 @@ MAINTAINER Karl Stoney <karl.stoney@hp.com>
 
 RUN yum -y -q install make gcc && \
     cd /tmp && \
-    wget --quiet http://download.redis.io/releases/redis-2.8.19.tar.gz && \
+    wget --quiet http://download.redis.io/releases/redis-3.0.0.tar.gz && \
     tar -xzf redis-*.tar.gz && \
     cd redis-* && \
     make -s && \
@@ -17,6 +17,7 @@ RUN mkdir -p /var/run/redis && \
     chown -R docker:docker /var/run/redis
 
 COPY cookbooks/ /chef/cookbooks/
+COPY preboot/* /preboot/
 
 ENV HPESS_ENV redis
 
