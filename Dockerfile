@@ -3,7 +3,7 @@ MAINTAINER Karl Stoney <karl.stoney@hp.com>
 
 RUN yum -y -q install make gcc && \
     cd /tmp && \
-    wget --quiet http://download.redis.io/releases/redis-3.0.1.tar.gz && \
+    wget --quiet http://download.redis.io/releases/redis-3.0.2.tar.gz && \
     tar -xzf redis-*.tar.gz && \
     cd redis-* && \
     make -s && \
